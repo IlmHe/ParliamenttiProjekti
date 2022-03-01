@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="fi.ilmarheinonen.parliamenttiprojekti.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_partyFragment"
+            app:destination="@id/partyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/partyFragment"
+        android:name="fi.ilmarheinonen.parliamenttiprojekti.fragments.PartyFragment"
+        android:label="PartyFragment"
+        tools:layout="@layout/fragment_party">
+        <action
+            android:id="@+id/action_partyFragment_to_membersListFragment"
+            app:destination="@id/membersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/membersListFragment"
+        android:name="fi.ilmarheinonen.parliamenttiprojekti.fragments.MembersListFragment"
+        android:label="MembersListFragment"
+        tools:layout="@layout/fragment_members_list">
+        <action
+            android:id="@+id/action_membersListFragment_to_memberFragment"
+            app:destination="@id/memberFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/memberFragment"
+        android:name="fi.ilmarheinonen.parliamenttiprojekti.fragments.MemberFragment"
+        android:label="MemberFragment"
+        tools:layout="@layout/fragment_member"/>
+
+</navigation>
