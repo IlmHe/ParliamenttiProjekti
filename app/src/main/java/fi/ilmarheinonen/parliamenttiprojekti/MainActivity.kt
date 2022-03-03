@@ -1,27 +1,18 @@
 package fi.ilmarheinonen.parliamenttiprojekti
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.room.Room
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
-import fi.ilmarheinonen.parliamenttiprojekti.databinding.ActivityMainBinding
-import fi.ilmarheinonen.parliamenttiprojekti.fragments.HomeFragment
-import fi.ilmarheinonen.parliamenttiprojekti.fragments.MainActivityViewModel
-import fi.ilmarheinonen.parliamenttiprojekti.fragments.listMembers
 import kotlinx.coroutines.launch
+import java.lang.reflect.Member
 
 
+var allListMembers = mutableListOf<MemberOfParliament>()
 class MainActivity : AppCompatActivity() {
 
 
@@ -32,17 +23,14 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        val dataBase = Room.databaseBuilder(
+        /*var dataBase = Room.databaseBuilder(
             applicationContext, MembersDatabase::class.java, "MemberOfParliament"
         )
             .allowMainThreadQueries()
-            .build()
+            .build()*/
 
 
-        val allMembers = dataBase.MembersDao().getAllMembers()
-        allMembers.forEach {
-            println("aaa ${it.party}")
-        }
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
     }
 
 
@@ -52,3 +40,39 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+//val listMembers = mutableListOf<MemberOfParliament>()
+
+lateinit var viewModel: MainActivityViewModel
+
+
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
+
+    //private var members: MutableLiveData<List<MemberOfParliament>> = MutableLiveData()
+    private val MembersDao = MembersDatabase.getDatabase(application).MembersDao()
+
+    val liveMember = MutableLiveData<MemberOfParliament>()
+
+    init {
+        // fetches a quote when ViewModel object is create
+        readMembers()
+    }
+
+
+
+    fun readMembers() {
+        viewModelScope.launch {
+
+                val members = MemberApi.retrofitService.getMemberList()
+
+                MembersDao.insertMember(members)
+                /*MemberApi.retrofitService.getMemberList()?.let { listMembers.addAll(it) }
+                MembersDatabase.getDatabase(MainActivity).MembersDao().insertMember(MemberApi.retrofitService.getMemberList())*/
+
+        }
+    }
+
+
+}
+
+

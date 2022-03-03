@@ -19,11 +19,11 @@ import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.ActivityMainBinding
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentHomeBinding
+import fi.ilmarheinonen.parliamenttiprojekti.viewModel
 import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
-    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,15 +34,15 @@ class HomeFragment : Fragment() {
             R.layout.fragment_home, container, false
         )
 
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        viewModel.readMembers()
-        //var textHome: TextView = binding.textView
 
-        /*binding.homeButton.setOnClickListener { view: View ->
+        binding.homeButton.setOnClickListener {
+            viewModel.readMembers()
+        }
+
+        binding.homeButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_partyFragment)
         }
-        binding.homeButton.setOnClickListener {
-        }*/
+
 
 
         return binding.root
@@ -50,28 +50,7 @@ class HomeFragment : Fragment() {
 
 }
 
-val listMembers = mutableListOf<MemberOfParliament>()
 
-class MainActivityViewModel : ViewModel() {
-
-    //private var members: MutableLiveData<List<MemberOfParliament>> = MutableLiveData()
-
-    fun readMembers() {
-        viewModelScope.launch {
-            try {
-                MemberApi.retrofitService.getMemberList()?.let { listMembers.addAll(it) }
-                listMembers.forEach {
-                    Log.i("tag"," ${it.first}, ")
-                }
-            } catch (e: Exception) {
-                println("No luck in reading players from NW: ${e}")
-            }
-
-        }
-    }
-
-
-}
 
 
 

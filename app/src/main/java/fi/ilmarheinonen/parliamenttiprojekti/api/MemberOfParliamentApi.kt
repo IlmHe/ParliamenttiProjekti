@@ -19,7 +19,7 @@ private val retrofit = Retrofit.Builder()
 
 interface MemberApiService {
     @GET("mps.json")
-    suspend fun getMemberList(): List<MemberOfParliament>
+    suspend fun getMemberList(): MutableList<MemberOfParliament>
 }
 
 object MemberApi {
