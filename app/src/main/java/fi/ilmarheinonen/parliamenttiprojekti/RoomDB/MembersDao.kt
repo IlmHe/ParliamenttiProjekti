@@ -11,6 +11,9 @@ interface MembersDao {
     @Query("SELECT * FROM MemberOfParliament")
     fun getAllMembers(): MutableList<MemberOfParliament>
 
+    @Query("SELECT party FROM MemberOfParliament")
+    fun getParties(): List<String>
+
     @Insert
     fun insertMember(MemberOfParliament: MutableList<MemberOfParliament>)
 }

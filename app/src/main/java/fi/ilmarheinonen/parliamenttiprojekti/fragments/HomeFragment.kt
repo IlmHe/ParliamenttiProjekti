@@ -35,10 +35,6 @@ class HomeFragment : Fragment() {
         )
 
 
-        binding.homeButton.setOnClickListener {
-            viewModel.readMembers()
-        }
-
         binding.homeButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_partyFragment)
         }
