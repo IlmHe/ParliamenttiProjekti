@@ -11,11 +11,10 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="216dp"
-            android:layout_marginEnd="126dp"
-            android:text="HOME FRAGMENT"
+            android:layout_width="344dp"
+            android:layout_height="377dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

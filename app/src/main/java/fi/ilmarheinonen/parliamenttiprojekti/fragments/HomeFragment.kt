@@ -1,18 +1,20 @@
 package fi.ilmarheinonen.parliamenttiprojekti.fragments
 
+import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.room.Room
+import fi.ilmarheinonen.parliamenttiprojekti.MainActivity
 import fi.ilmarheinonen.parliamenttiprojekti.R
+import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDao
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.ActivityMainBinding
@@ -24,7 +26,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater,
@@ -32,31 +35,34 @@ class HomeFragment : Fragment() {
         )
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel.readMembers()
+        //var textHome: TextView = binding.textView
 
         /*binding.homeButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_partyFragment)
+        }
+        binding.homeButton.setOnClickListener {
         }*/
 
-        binding.homeButton.setOnClickListener {
-            viewModel.readMembers()
-        }
 
         return binding.root
     }
 
 }
 
+val listMembers = mutableListOf<MemberOfParliament>()
+
 class MainActivityViewModel : ViewModel() {
 
-
-    var members: MutableLiveData<List<MemberOfParliament>> = MutableLiveData()
+    //private var members: MutableLiveData<List<MemberOfParliament>> = MutableLiveData()
 
     fun readMembers() {
         viewModelScope.launch {
             try {
-                members.value = PlayerApi.retrofitService.getMemberList()
-
-                println("Read players from NW with great success.${members.toString()}")
+                MemberApi.retrofitService.getMemberList()?.let { listMembers.addAll(it) }
+                listMembers.forEach {
+                    Log.i("tag"," ${it.first}, ")
+                }
             } catch (e: Exception) {
                 println("No luck in reading players from NW: ${e}")
             }
@@ -66,3 +72,6 @@ class MainActivityViewModel : ViewModel() {
 
 
 }
+
+
+

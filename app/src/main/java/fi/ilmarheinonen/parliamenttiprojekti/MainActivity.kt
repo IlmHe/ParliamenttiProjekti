@@ -16,10 +16,13 @@ import com.squareup.moshi.Moshi
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.ActivityMainBinding
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.HomeFragment
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.MainActivityViewModel
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.listMembers
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,23 +32,23 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        val database = Room.databaseBuilder(
-            applicationContext, MembersDatabase::class.java, "MembersOfParliament"
+        val dataBase = Room.databaseBuilder(
+            applicationContext, MembersDatabase::class.java, "MemberOfParliament"
         )
             .allowMainThreadQueries()
             .build()
 
-        val allMembers = database.MembersDao().getAllMembers()
-        allMembers.forEach {
-            Log.i("tag"," ${it.first}, ")
-        }
 
+        val allMembers = dataBase.MembersDao().getAllMembers()
+        allMembers.forEach {
+            println("aaa ${it.party}")
+        }
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return navController.navigateUp()
     }
-
 
 }

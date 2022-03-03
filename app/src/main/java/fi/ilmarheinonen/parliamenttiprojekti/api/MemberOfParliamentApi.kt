@@ -17,12 +17,12 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface PlayerApiService {
+interface MemberApiService {
     @GET("mps.json")
     suspend fun getMemberList(): List<MemberOfParliament>
 }
 
-object PlayerApi {
-    val retrofitService : PlayerApiService by lazy {
-        retrofit.create(PlayerApiService::class.java) }
+object MemberApi {
+    val retrofitService : MemberApiService by lazy {
+        retrofit.create(MemberApiService::class.java) }
 }

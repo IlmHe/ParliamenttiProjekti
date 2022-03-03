@@ -9,8 +9,8 @@ import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 interface MembersDao {
 
     @Query("SELECT * FROM MemberOfParliament")
-    fun getAllMembers(): List<MemberOfParliament>
+    fun getAllMembers(): MutableList<MemberOfParliament>
 
     @Insert
-    fun insertMember(memberOfParliament: List<MemberOfParliament>)
+    fun insertMember(MemberOfParliament: MutableList<MemberOfParliament>)
 }
