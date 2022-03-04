@@ -4,13 +4,16 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import kotlinx.coroutines.launch
-import java.lang.reflect.Member
 
 
 //var allListMembers = mutableListOf<MemberOfParliament>()
@@ -29,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         )
             .allowMainThreadQueries()
             .build()*/
-
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         viewModel = ViewModelProvider(this, factory).get(MainActivityViewModel::class.java)
 
         //viewModel.ReadMembers()
+
     }
 
 
@@ -47,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 //val listMembers = mutableListOf<MemberOfParliament>()
 
 lateinit var viewModel: MainActivityViewModel
-var parties = listOf<String>()
+var fullNameMemberOfParliament = listOf<String>()
+var partiesMemberOfParliament = listOf<Pair<String, String>>()
+
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -69,8 +74,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             val members = MemberApi.retrofitService.getMemberList()
 
             MembersDao.insertMember(members)
-            parties = MembersDao.getParties().distinct()
-            Log.i("tag","$parties")
+            fullNameMemberOfParliament = MembersDao.getFullName()
+            partiesMemberOfParliament = MembersDao.getParties().distinct()
             /*MemberApi.retrofitService.getMemberList()?.let { listMembers.addAll(it) }
             MembersDatabase.getDatabase(MainActivity).MembersDao().insertMember(MemberApi.retrofitService.getMemberList())*/
 

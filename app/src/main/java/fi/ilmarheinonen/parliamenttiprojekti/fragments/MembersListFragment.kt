@@ -7,19 +7,38 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import fi.ilmarheinonen.parliamenttiprojekti.R
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentHomeBinding
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentMembersListBinding
+import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentPartyBinding
+import fi.ilmarheinonen.parliamenttiprojekti.fullNameMemberOfParliament
+import fi.ilmarheinonen.parliamenttiprojekti.partiesMemberOfParliament
+import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberListAdapter
+import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.PartiesAdapter
 
 class MembersListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        val binding = DataBindingUtil.inflate<FragmentMembersListBinding>(inflater,
-            R.layout.fragment_members_list,container,false)
-        binding.memberListButton.setOnClickListener{view : View ->
-            view.findNavController().navigate(R.id.action_membersListFragment_to_memberFragment)
+        val binding = DataBindingUtil.inflate<FragmentPartyBinding>(
+            inflater,
+            R.layout.fragment_party, container, false
+        )
+
+        binding.partyRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = MemberListAdapter(fullNameMemberOfParliament)
+
         }
+
+
+
         return binding.root
+
     }
 }
