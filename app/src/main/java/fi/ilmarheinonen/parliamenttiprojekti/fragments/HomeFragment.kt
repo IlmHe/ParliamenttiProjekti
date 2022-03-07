@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.room.Room
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import fi.ilmarheinonen.parliamenttiprojekti.MainActivity
 import fi.ilmarheinonen.parliamenttiprojekti.R
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDao
@@ -19,6 +21,7 @@ import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.ActivityMainBinding
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentHomeBinding
+import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.picture
 import fi.ilmarheinonen.parliamenttiprojekti.viewModel
 import kotlinx.coroutines.launch
 

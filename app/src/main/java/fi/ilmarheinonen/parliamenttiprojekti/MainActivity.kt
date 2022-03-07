@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
@@ -18,6 +20,7 @@ import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedParty
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.picture
 import kotlinx.android.synthetic.main.fragment_member.*
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -70,12 +73,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         // Runs ReadMembers when viewmodel is created
         ReadMembers()
     }
+    val periodicWorkRequest = PeriodicWorkRequestBuilder<TestWorker>(24, TimeUnit.HOURS).build()
 
 
     fun ReadMembers() {
         viewModelScope.launch {
 
             val members = MemberApi.retrofitService.getMemberList()
+            WorkManager.getInstance().enqueue(periodicWorkRequest)
 
             MembersDao.insertMember(members)
 
