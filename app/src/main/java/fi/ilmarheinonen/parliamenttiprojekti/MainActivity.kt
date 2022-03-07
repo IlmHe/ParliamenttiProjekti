@@ -11,12 +11,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedParty
+import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.picture
+import kotlinx.android.synthetic.main.fragment_member.*
 import kotlinx.coroutines.launch
 
 
-//var allListMembers = mutableListOf<MemberOfParliament>()
 class MainActivity : AppCompatActivity() {
 
 
@@ -36,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(MainActivityViewModel::class.java)
 
         //viewModel.ReadMembers()
-
     }
 
 
@@ -45,25 +47,27 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
+
 }
 
-//val listMembers = mutableListOf<MemberOfParliament>()
 
 lateinit var viewModel: MainActivityViewModel
-var fullNameMemberOfParliament = listOf<String>()
-var partiesMemberOfParliament = listOf<Pair<String, String>>()
 
+var fullNameMemberOfParliament = mutableListOf<String>()
+var firstNameMemberOfParliament = mutableListOf<String>()
+var partiesMemberOfParliament = listOf<String>()
+var lastNameMemberOfParliament = mutableListOf<String>()
+var allPartiesDuplicate = listOf<String>()
+var allmemberOfParliament = listOf<MemberOfParliament>()
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    //private var members: MutableLiveData<List<MemberOfParliament>> = MutableLiveData()
     private val MembersDao = MembersDatabase.getDatabase(application).MembersDao()
 
-    //val liveMember = MutableLiveData<MemberOfParliament>()
 
     init {
-        // fetches a quote when ViewModel object is create
+        // Runs ReadMembers when viewmodel is created
         ReadMembers()
     }
 
@@ -74,10 +78,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             val members = MemberApi.retrofitService.getMemberList()
 
             MembersDao.insertMember(members)
-            fullNameMemberOfParliament = MembersDao.getFullName()
+
             partiesMemberOfParliament = MembersDao.getParties().distinct()
-            /*MemberApi.retrofitService.getMemberList()?.let { listMembers.addAll(it) }
-            MembersDatabase.getDatabase(MainActivity).MembersDao().insertMember(MemberApi.retrofitService.getMemberList())*/
+            firstNameMemberOfParliament = MembersDao.getFirstName()
+            lastNameMemberOfParliament = MembersDao.getLastName()
+            allPartiesDuplicate = MembersDao.getParties()
+            allmemberOfParliament = MembersDao.getAllMembers()
+
 
         }
     }

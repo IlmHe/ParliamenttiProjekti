@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import fi.ilmarheinonen.parliamenttiprojekti.MainActivity
 import fi.ilmarheinonen.parliamenttiprojekti.R
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament

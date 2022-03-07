@@ -15,6 +15,7 @@ import fi.ilmarheinonen.parliamenttiprojekti.partiesMemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.PartiesAdapter
 
 var clickedParty: String = ""
+
 class PartyFragment : Fragment() {
 
 
@@ -34,8 +35,6 @@ class PartyFragment : Fragment() {
             adapter = PartiesAdapter(partiesMemberOfParliament)
 
         }
-
-
 
         return binding.root
 
