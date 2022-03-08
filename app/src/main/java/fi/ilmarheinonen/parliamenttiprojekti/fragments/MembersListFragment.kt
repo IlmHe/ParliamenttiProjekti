@@ -11,9 +11,7 @@ import fi.ilmarheinonen.parliamenttiprojekti.*
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentPartyBinding
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberListAdapter
 
-var clickedMemberFirst: String = ""
-var clickedMemberLast: String = ""
-
+var clickedParty: String = ""
 
 class MembersListFragment : Fragment() {
 
@@ -66,7 +64,7 @@ fun fullNames() {
 
 //Gets the picture of the selected MemberOfParliament
 fun getPicture(firstName: String, lastName: String): String {
-    allmemberOfParliament.forEach {
+    allMemberOfParliament.forEach {
         if (it.first.equals(firstName) && it.last.equals(lastName)) {
             return it.picture
         }

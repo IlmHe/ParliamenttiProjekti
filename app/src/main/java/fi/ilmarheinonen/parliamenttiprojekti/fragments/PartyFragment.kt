@@ -12,8 +12,6 @@ import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentPartyBinding
 import fi.ilmarheinonen.parliamenttiprojekti.partiesMemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.PartiesAdapter
 
-var clickedParty: String = ""
-
 class PartyFragment : Fragment() {
 
 

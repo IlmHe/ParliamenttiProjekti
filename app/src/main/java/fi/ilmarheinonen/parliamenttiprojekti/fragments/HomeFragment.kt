@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
             R.layout.fragment_home, container, false
         )
 
-        //Utilizes navigation.xml to move to second fragment
+        //Utilizes navigation.xml to move to party fragment
         binding.homeButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_homeFragment_to_partyFragment)
         }

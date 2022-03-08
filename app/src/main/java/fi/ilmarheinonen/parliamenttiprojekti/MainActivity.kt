@@ -1,26 +1,17 @@
 package fi.ilmarheinonen.parliamenttiprojekti
 
+import MemberApi
 import android.app.Application
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
-import androidx.lifecycle.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import com.bumptech.glide.Glide
 import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
-import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedParty
-import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.picture
-import kotlinx.android.synthetic.main.fragment_member.*
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,21 +21,19 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Enables the usage of navigation.xml
         val navController = this.findNavController(R.id.myNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        /*var dataBase = Room.databaseBuilder(
-            applicationContext, MembersDatabase::class.java, "MemberOfParliament"
-        )
-            .allowMainThreadQueries()
-            .build()*/
+        //Provides ViewModel for scope
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         viewModel = ViewModelProvider(this, factory).get(MainActivityViewModel::class.java)
 
-        //viewModel.ReadMembers()
+
     }
 
-
+    //Enables navigateUp to correctly go to previous layout
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return navController.navigateUp()
@@ -56,37 +45,42 @@ class MainActivity : AppCompatActivity() {
 
 lateinit var viewModel: MainActivityViewModel
 
+
+//For storing data from the RoomDB
 var fullNameMemberOfParliament = mutableListOf<String>()
 var firstNameMemberOfParliament = mutableListOf<String>()
 var partiesMemberOfParliament = listOf<String>()
 var lastNameMemberOfParliament = mutableListOf<String>()
 var allPartiesDuplicate = listOf<String>()
-var allmemberOfParliament = listOf<MemberOfParliament>()
+var allMemberOfParliament = listOf<MemberOfParliament>()
 
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val MembersDao = MembersDatabase.getDatabase(application).MembersDao()
+    //Save MembersDao to variable
+    private val membersDao = MembersDatabase.getDatabase(application).MembersDao()
 
 
     init {
         // Runs ReadMembers when viewmodel is created
-        ReadMembers()
+        readMembers()
     }
 
 
-    fun ReadMembers() {
+    private fun readMembers() {
+
         viewModelScope.launch {
 
+            //Insert data from retrofit to RoomDB
             val members = MemberApi.retrofitService.getMemberList()
+            membersDao.insertMember(members)
 
-            MembersDao.insertMember(members)
-
-            partiesMemberOfParliament = MembersDao.getParties().distinct()
-            firstNameMemberOfParliament = MembersDao.getFirstName()
-            lastNameMemberOfParliament = MembersDao.getLastName()
-            allPartiesDuplicate = MembersDao.getParties()
-            allmemberOfParliament = MembersDao.getAllMembers()
+            //Save data to variables for usage
+            partiesMemberOfParliament = membersDao.getParties().distinct()
+            firstNameMemberOfParliament = membersDao.getFirstName()
+            lastNameMemberOfParliament = membersDao.getLastName()
+            allPartiesDuplicate = membersDao.getParties()
+            allMemberOfParliament = membersDao.getAllMembers()
 
 
         }

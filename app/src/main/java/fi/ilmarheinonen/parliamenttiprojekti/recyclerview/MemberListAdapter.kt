@@ -28,6 +28,7 @@ class MemberListAdapter(private val members: MutableList<String>) :
         viewType: Int
     ): MemberListAdapter.ViewHolder {
 
+        //Obtains LayoutInflater from context and inflates card_member_list
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.card_members_list, parent, false)
 
@@ -37,22 +38,29 @@ class MemberListAdapter(private val members: MutableList<String>) :
 
     override fun onBindViewHolder(holder: MemberListAdapter.ViewHolder, position: Int) {
 
+        //Populate RecyclerView with list of members (fullNameMemberOfParliament)
         holder.view.membersId.text = members[position]
 
         holder.view.setOnClickListener { view: View ->
+
+            //Stores First name to clickedMemberFirst and Last name to clickedMemberLast
             clickedMemberFirst = members[position]
             val list = clickedMemberFirst.split(" ")
             clickedMemberFirst = list[0]
             clickedMemberLast = list[1]
+
+            //Uses getPicture function to save the picture attachment of the clicked member
             picture = getPicture(clickedMemberFirst, clickedMemberLast)
 
+            //Utilizes navigation.xml to move to member fragment
             view.findNavController().navigate(R.id.action_membersListFragment_to_memberFragment)
         }
     }
 
-
+    //Returns members size
     override fun getItemCount() = members.size
 
+    //Describes an item view and metadata about its place within the RecyclerView
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
 

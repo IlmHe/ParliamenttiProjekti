@@ -66,12 +66,10 @@ class MemberAdapter(
 
     }
 
-    //Returns members.length
+    //Returns members length
     override fun getItemCount() = members.length
 
 
     //Describes an item view and metadata about its place within the RecyclerView
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
-
-
 }

@@ -11,6 +11,9 @@ import fi.ilmarheinonen.parliamenttiprojekti.R
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentMemberBinding
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberAdapter
 
+//For storing First and Last name
+var clickedMemberFirst: String = ""
+var clickedMemberLast: String = ""
 
 class MemberFragment : Fragment() {
 

@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
-import kotlinx.coroutines.CoroutineScope
 
 
 @Database(entities = [MemberOfParliament::class], version = 1)
@@ -16,6 +14,7 @@ abstract class MembersDatabase : RoomDatabase() {
 
     companion object {
 
+        //Used to return the database
         @Volatile
         private var instance: MembersDatabase? = null
         fun getDatabase(context: Context): MembersDatabase {
@@ -24,6 +23,7 @@ abstract class MembersDatabase : RoomDatabase() {
             }
         }
 
+        //Used to create an instance of the database
         private fun buildDatabase(context: Context): MembersDatabase {
             return Room.databaseBuilder(context, MembersDatabase::class.java, "MemberOfParliament")
                 .allowMainThreadQueries()
@@ -32,10 +32,3 @@ abstract class MembersDatabase : RoomDatabase() {
     }
 
 }
-/*if (INSTANCE == null) {
-                synchronized(this) {
-                    INSTANCE =
-                        Room.databaseBuilder(context,MembersDatabase::class.java, "MemberOfParliament")
-                            .build()
-                }
-            }*/
