@@ -1,27 +1,21 @@
 package fi.ilmarheinonen.parliamenttiprojekti.recyclerview
 
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.util.Log
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import fi.ilmarheinonen.parliamenttiprojekti.R
-import fi.ilmarheinonen.parliamenttiprojekti.fragments.*
-import fi.ilmarheinonen.parliamenttiprojekti.viewModel
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedMemberFirst
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedMemberLast
+import fi.ilmarheinonen.parliamenttiprojekti.fragments.getPicture
 
+//Save TextView membersId to val membersId
 private val View.membersId: TextView
     get() = findViewById(R.id.membersId)
 
+//Saves the image attachment of the clicked member
 var picture = ""
 
 
@@ -50,7 +44,7 @@ class MemberListAdapter(private val members: MutableList<String>) :
             val list = clickedMemberFirst.split(" ")
             clickedMemberFirst = list[0]
             clickedMemberLast = list[1]
-            picture = GetPicture(clickedMemberFirst, clickedMemberLast)
+            picture = getPicture(clickedMemberFirst, clickedMemberLast)
 
             view.findNavController().navigate(R.id.action_membersListFragment_to_memberFragment)
         }

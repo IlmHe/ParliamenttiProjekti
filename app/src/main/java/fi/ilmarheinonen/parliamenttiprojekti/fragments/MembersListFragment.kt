@@ -1,22 +1,15 @@
 package fi.ilmarheinonen.parliamenttiprojekti.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.util.Log.d
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import fi.ilmarheinonen.parliamenttiprojekti.*
-import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentHomeBinding
-import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentMembersListBinding
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentPartyBinding
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberListAdapter
-import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.PartiesAdapter
 
 var clickedMemberFirst: String = ""
 var clickedMemberLast: String = ""
@@ -28,30 +21,38 @@ class MembersListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
+        //Creates an instance of the binding class for the activity
         val binding = DataBindingUtil.inflate<FragmentPartyBinding>(
             inflater,
             R.layout.fragment_party, container, false
         )
 
+
         fullNameMemberOfParliament.clear()
-        FullNames()
+        fullNames()
 
 
         binding.partyRecyclerView.apply {
+            //LayoutManager for RecyclerView
             layoutManager = LinearLayoutManager(context)
+
+            //Adapter for RecyclerView
             adapter = MemberListAdapter(fullNameMemberOfParliament)
 
         }
+
+        //Inflates view
         return binding.root
 
     }
 }
 
-fun FullNames() {
-    var text: String = ""
-    var i: Int = 0
+//Creates a list of First and Last from MemberOfParliament
+fun fullNames() {
+    var text: String
+    var i = 0
     do {
         if (allPartiesDuplicate[i].equals(clickedParty)) {
             text = firstNameMemberOfParliament[i] + " " + lastNameMemberOfParliament[i]
@@ -63,7 +64,8 @@ fun FullNames() {
     } while (i != 200)
 }
 
-fun GetPicture(firstName: String, lastName: String): String {
+//Gets the picture of the selected MemberOfParliament
+fun getPicture(firstName: String, lastName: String): String {
     allmemberOfParliament.forEach {
         if (it.first.equals(firstName) && it.last.equals(lastName)) {
             return it.picture

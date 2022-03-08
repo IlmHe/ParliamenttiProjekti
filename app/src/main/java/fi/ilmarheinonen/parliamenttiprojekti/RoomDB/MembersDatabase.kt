@@ -9,10 +9,6 @@ import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import kotlinx.coroutines.CoroutineScope
 
 
-/*@Database(entities = [MemberOfParliament::class], version = 1)
-abstract class MembersDatabase : RoomDatabase(){
-    abstract fun MembersDao(): MembersDao
-}*/
 @Database(entities = [MemberOfParliament::class], version = 1)
 abstract class MembersDatabase : RoomDatabase() {
     abstract fun MembersDao(): MembersDao

@@ -73,14 +73,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         // Runs ReadMembers when viewmodel is created
         ReadMembers()
     }
-    val periodicWorkRequest = PeriodicWorkRequestBuilder<TestWorker>(24, TimeUnit.HOURS).build()
 
 
     fun ReadMembers() {
         viewModelScope.launch {
 
             val members = MemberApi.retrofitService.getMemberList()
-            WorkManager.getInstance().enqueue(periodicWorkRequest)
 
             MembersDao.insertMember(members)
 
