@@ -5,6 +5,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Handles data from MembersDatabase
+ */
+
 @Dao
 interface MembersDao {
 

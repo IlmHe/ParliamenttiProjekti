@@ -23,6 +23,12 @@ private val View.lastName: TextView
 private val View.imgView: ImageView
     get() = findViewById(R.id.idImageView)
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Adapter for MemberFragmentRecyclerView, handles data
+ */
 
 class MemberAdapter(
     private val members: String,

@@ -15,6 +15,13 @@ import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberAdapter
 var clickedMemberFirst: String = ""
 var clickedMemberLast: String = ""
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * MemberFragment shows in detail data about the selected member of parliament
+ */
+
 class MemberFragment : Fragment() {
 
     override fun onCreateView(

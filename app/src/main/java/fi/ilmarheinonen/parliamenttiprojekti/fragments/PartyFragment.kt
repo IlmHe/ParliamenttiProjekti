@@ -12,6 +12,13 @@ import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentPartyBinding
 import fi.ilmarheinonen.parliamenttiprojekti.partiesMemberOfParliament
 import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.PartiesAdapter
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Shows a list of parties in the parliament
+ */
+
 class PartyFragment : Fragment() {
 
 

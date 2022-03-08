@@ -13,6 +13,13 @@ import fi.ilmarheinonen.parliamenttiprojekti.recyclerview.MemberListAdapter
 
 var clickedParty: String = ""
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Shows a list of members in the selected party
+ */
+
 class MembersListFragment : Fragment() {
 
     override fun onCreateView(

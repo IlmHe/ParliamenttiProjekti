@@ -3,6 +3,12 @@ package fi.ilmarheinonen.parliamenttiprojekti.api
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * How data is stored
+ */
 @Entity
 data class MemberOfParliament(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,

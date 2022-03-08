@@ -13,6 +13,12 @@ import fi.ilmarheinonen.parliamenttiprojekti.fragments.clickedParty
 private val View.partiesId: TextView
     get() = findViewById(R.id.partiesId)
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Adapter for PartyFragmentRecyclerView, handles data
+ */
 
 class PartiesAdapter(private val parties: List<String>) :
     RecyclerView.Adapter<PartiesAdapter.ViewHolder>() {

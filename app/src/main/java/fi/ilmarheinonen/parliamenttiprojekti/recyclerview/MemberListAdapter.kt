@@ -19,6 +19,13 @@ private val View.membersId: TextView
 var picture = ""
 
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Adapter for MemberListFragmentRecyclerView, handles data
+ */
+
 class MemberListAdapter(private val members: MutableList<String>) :
     RecyclerView.Adapter<MemberListAdapter.ViewHolder>() {
 

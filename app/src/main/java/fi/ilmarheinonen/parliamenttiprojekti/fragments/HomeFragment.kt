@@ -10,6 +10,12 @@ import androidx.navigation.findNavController
 import fi.ilmarheinonen.parliamenttiprojekti.R
 import fi.ilmarheinonen.parliamenttiprojekti.databinding.FragmentHomeBinding
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * HomeFragment displays home screen
+ */
 
 class HomeFragment : Fragment() {
 

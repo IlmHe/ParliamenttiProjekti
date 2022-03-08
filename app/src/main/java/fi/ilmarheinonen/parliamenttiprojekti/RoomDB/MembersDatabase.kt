@@ -6,6 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Functions for creating the Room database
+ */
 
 @Database(entities = [MemberOfParliament::class], version = 1)
 abstract class MembersDatabase : RoomDatabase() {

@@ -13,6 +13,12 @@ import fi.ilmarheinonen.parliamenttiprojekti.RoomDB.MembersDatabase
 import fi.ilmarheinonen.parliamenttiprojekti.api.MemberOfParliament
 import kotlinx.coroutines.launch
 
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * Initializes navController, ViewModel, navigateUp
+ */
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,6 +60,14 @@ var lastNameMemberOfParliament = mutableListOf<String>()
 var allPartiesDuplicate = listOf<String>()
 var allMemberOfParliament = listOf<MemberOfParliament>()
 
+
+
+/**
+ * 08/03/2022
+ * Ilmar Heinonen
+ * 2110597
+ * ViewModel class, also creates the Database and fetches/inserts data
+ */
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
